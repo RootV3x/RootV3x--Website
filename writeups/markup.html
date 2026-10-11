@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTB Markup Write-up | RootV3x</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=7">
+</head>
+
+<body class="writeup-page">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="background-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><span class="prompt">&gt;_</span> RootV3x</a>
+      <a class="writeup-back" href="../index.html#writeups">← Terug naar write-ups</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="writeup-hero">
+        <p class="eyebrow">HACK THE BOX • MARKUP</p>
+        <h1>Hack The Box — Markup</h1>
+        <p>Technische samenvatting van het afgeronde HTB-lab: XXE → SSH-sleutel → schrijfbaar job.bat.</p>
+        <div class="writeup-summary"><span>Afgerond</span><span>Difficulty: Easy</span><span>OS: Windows</span></div>
+      </div>
+      <nav class="writeup-toc" aria-label="Write-up secties"><strong>WRITE-UP SECTIONS</strong><a
+          href="#overview">Overview</a><a href="#recon">Recon</a><a href="#enumeration">Enumeration</a><a
+          href="#access">Initial Access</a><a href="#privesc">Privilege Escalation</a><a href="#lessons">Lessons
+          Learned</a></nav>
+      <article class="writeup-article">
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>Tijdens dit lab lag de focus op het uitbuiten van een XML External Entity (XXE)-kwetsbaarheid, het
+            buitmaken van een private SSH-sleutel en het escaleren van rechten via een schrijfbaar batchbestand. Door
+            deze elementen succesvol aan elkaar te knopen, wist ik vanuit de webapplicatie een interactieve SSH-sessie
+            te starten als de gebruiker daniel, om vervolgens via een slecht beveiligde geplande taak volledige
+            roottoegang (Administrator) te verkrijgen.</p>
+          <div class="attack-path">Nmap → HTTP / XML → XXE → Private SSH-sleutel uitlezen → SSH als daniel →
+            Schrijfbaar job.bat → Geplande uitvoering met verhoogde rechten → Administrator</div>
+        </section>
+        <section id="recon">
+          <h2>Reconnaissance</h2>
+          <p>Mijn initiële poortscan voerde ik uit met Nmap. Hieruit kwamen de volgende twee services als primaire
+            doelen naar voren:</p>
+          <div class="table-scroll">
+            <table>
+              <tr>
+                <td>80</td>
+                <td>HTTP / Apache</td>
+                <td>Aanwezigheid van XML-functionaliteit in de webapplicatie</td>
+              </tr>
+              <tr>
+                <td>22</td>
+                <td>SSH</td>
+                <td>Mogelijkheid tot inloggen zodra er authenticatiemateriaal is gevonden</td>
+              </tr>
+            </table>
+          </div>
+        </section>
+        <section id="enumeration">
+          <h2>Enumeration</h2>
+          <p>Bij het analyseren van de webomgeving stuitte ik op een loginpagina met actieve XML-functionaliteit. De
+            invoerverwerking bleek niet correct te zijn afgeschermd tegen externe entiteiten. Omdat de applicatie geen
+            gebruik maakte van up-to-date XML-parsers waarin externe entiteiten standaard zijn uitgeschakeld, was de
+            omgeving kwetsbaar voor een XXE-aanval. Met deze kwetsbaarheid kon ik willekeurige lokale bestanden op het
+            systeem uitlezen. Tijdens de inspectie van de gebruikersmappen wist ik zo de private SSH-sleutel (id_rsa)
+            uit de profielmap van de gebruiker daniel te extraheren</p>
+        </section>
+        <section id="access">
+          <h2>Initial Access</h2>
+          <p>Met de buitgemaakte private SSH-sleutel kon ik direct verbinding maken met de SSH-service op poort 22.
+            Hierdoor transformeerde ik de passieve bestandstoegang vanuit de webapplicatie succesvol in een interactieve
+            Windows-gebruikerssessie als daniel, waarmee de gebruikersvlag binnen handbereik kwam.</p>
+        </section>
+        <section id="privesc">
+          <h2>Privilege Escalation</h2>
+          <p>Eenmaal ingelogd startte ik een lokale inspectie van het bestandssysteem. In de map C:\Log-Management trof
+            ik een batchscript aan genaamd job.bat. Bij het controleren van de bestandsrechten via icacls bleek dat de
+            groep BUILTIN\Users (waar mijn account daniel onder viel) volledige schrijfrechten (F) had op dit bestand.
+            Omdat dit script periodiek door een geplande taak met verhoogde Administrator-rechten werd uitgevoerd, kon
+            ik hier eenvoudig misbruik van maken. Ik heb een Netcat-payload (nc.exe) naar de machine overgebracht en
+            deze via een echo-commando in job.bat geplaatst. Toen de geplande taak een moment later automatisch op de
+            achtergrond startte, werd mijn payload met de hoogste rechten uitgevoerd. Dit leverde mij direct een reverse
+            shell op met Administrator-rechten, waarmee de machine volledig was overgenomen.
+          </p>
+        </section>
+        <section id="lessons">
+          <h2>Lessons Learned</h2>
+          <ul>
+            <li>XXE kan lokale bestanden bereikbaar maken.</li>
+            <li>Zwakke bestandsrechten op scripts die door systeemservices of geplande taken worden aangeroepen, heffen de beveiliging tussen reguliere gebruikers en beheerders volledig op.</li>
+            <li>Periodieke administrative scripts moeten altijd in afgeschermde mappen staan waar reguliere gebruikers geen schrijftoegang toe hebben.</li>
+          </ul>
+          <h3>Gebruikte tools</h3>
+          <p><code>Nmap</code> • <code>Nmap</code> • <code>Burp Suite</code> • <code>SSH</code> •
+            <code>Netcat</code> • <code>PowerShell</code>
+          </p>
+        </section>
+      </article>
+    </div>
+  </main>
+  <script src="../script.js?v=7"></script>
+</body>
+
+</html>

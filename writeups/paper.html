@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTB Paper Write-up | RootV3x</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=7">
+</head>
+
+<body class="writeup-page">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="background-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><span class="prompt">&gt;_</span> RootV3x</a>
+      <a class="writeup-back" href="../index.html#writeups">← Terug naar write-ups</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="writeup-hero">
+        <p class="eyebrow">HACK THE BOX • PAPER</p>
+        <h1>Hack The Box — Paper</h1>
+        <p>WordPress-informatielekken, geheimenbeheer rond Recyclops/HUBOT en een autorisatiefout in polkit.</p>
+        <div class="writeup-summary"><span>Afgerond</span><span>OS: Linux</span></div>
+      </div>
+      <nav class="writeup-toc" aria-label="Write-up secties"><strong>WRITE-UP SECTIONS</strong><a
+          href="#overview">Overview</a><a href="#recon">Reconnaissance</a><a href="#enumeration">Enumeration</a><a
+          href="#access">Initial Access</a><a href="#privesc">Privilege Escalation</a><a href="#lessons">Lessons
+          Learned</a></nav>
+      <article class="writeup-article">
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>Paper is een afgeronde Linux-machine op Hack The Box. In dit lab onderzocht ik hoe een
+            informatielek in WordPress, blootgestelde botconfiguratie en een lokale autorisatiefout elkaar
+            konden versterken. De oefening eindigde met volledige roottoegang.</p>
+          <p>De belangrijkste thema's waren web-enumeratie, het beschermen van configuratiegeheimen,
+            wachtwoordhergebruik en het beoordelen van lokale systeemrechten.</p>
+        </section>
+        <section id="recon">
+          <h2>Reconnaissance</h2>
+          <p>De aangetroffen services waren SSH op poort 22, HTTP op poort 80 en HTTPS op poort 443.
+            Binnen de labomgeving kwam de website <code>office.paper</code> naar voren. Deze draaide op
+            WordPress 5.2.3, waardoor de beveiliging van de webapplicatie een belangrijk onderzoekspunt werd.</p>
+          <p>Een versienummer geeft richting aan verder onderzoek, maar bewijst op zichzelf niet dat een
+            installatie kwetsbaar is. Configuratie, distributiepatches en het daadwerkelijk waargenomen gedrag
+            horen bij die beoordeling.</p>
+        </section>
+        <section id="enumeration">
+          <h2>Enumeration</h2>
+          <p>Het WordPress-informatielek CVE-2019-17671 speelde een rol bij het zichtbaar worden van inhoud
+            die niet openbaar hoorde te zijn. In de labnotities leidde deze bevinding naar de interne
+            chatomgeving <code>chat.office.paper</code>.</p>
+          <p>Daar was Recyclops actief, een bot op basis van HUBOT. Het onderzoek liet zien dat de toegang
+            van een bot tot bestanden en configuratie een afzonderlijke vertrouwensgrens vormt. Gevoelige
+            gegevens horen ook binnen een interne chatomgeving afgeschermd te blijven.</p>
+        </section>
+        <section id="access">
+          <h2>Initial Access</h2>
+          <p>In de botomgeving bleken inloggegevens uit een <code>.env</code>-configuratiebestand onvoldoende
+            beschermd. Wachtwoordhergebruik vergrootte de impact van dit lek. In het lab werd vervolgens
+            SSH-toegang als gebruiker <code>dwight</code> bevestigd.</p>
+          <p>Deze bevinding onderstreept waarom serviceaccounts unieke geheimen, beperkte bestandsrechten
+            en alleen de noodzakelijke toegang moeten hebben.</p>
+        </section>
+        <section id="privesc">
+          <h2>Privilege Escalation</h2>
+          <p>Na de initiële toegang volgde lokale enumeratie van rechten, softwareversies en systeemservices.
+            De labnotities vermelden <code>polkit 0.115-6.el8</code>, D-Bus en AccountsService als relevante
+            componenten voor het onderzoek naar CVE-2021-3560.</p>
+          <p>Deze kwetsbaarheid betreft een race condition in de autorisatieafhandeling van polkit.
+            In het lab kon een bevoorrechte accountwijziging daardoor plaatsvinden zonder de bedoelde
+            autorisatie. Het vastgelegde resultaat was een account met lidmaatschap van de
+            <code>wheel</code>-groep en uiteindelijk een root-shell via sudo.</p>
+          <p>De impact hing samen met de aanwezige services, de patchstatus en de lokale sudo-configuratie.
+            Alleen het aantreffen van polkit of de wheel-groep is daarom onvoldoende om roottoegang
+            als mogelijk te beschouwen.</p>
+        </section>
+        <section id="lessons">
+          <h2>Lessons Learned</h2>
+          <ul>
+            <li>Een informatielek kan interne systemen blootleggen en de impact van andere zwakke plekken vergroten.</li>
+            <li>Chatbots en hun configuratiebestanden verdienen dezelfde bescherming als andere applicaties.</li>
+            <li>Wachtwoordhergebruik kan een applicatielek uitbreiden naar toegang tot het besturingssysteem.</li>
+            <li>Lokale enumeratie vereist een combinatie van versiegegevens, patchstatus, services en autorisatiebeleid.</li>
+          </ul>
+          <h3>Mitigatie &amp; remediatie</h3>
+          <ul>
+            <li>Werk WordPress bij en controleer dat niet-openbare inhoud daadwerkelijk afgeschermd blijft.</li>
+            <li>Beperk de bestandsrechten en functies van bots; houd configuratiegeheimen buiten bereik van chatgebruikers.</li>
+            <li>Gebruik unieke servicecredentials en roteer geheimen zodra blootstelling is vastgesteld.</li>
+            <li>Installeer de beveiligingsupdates van de distributie voor polkit en controleer de relevante vendoradvisories.</li>
+            <li>Beperk beheerdersrechten en monitor onverwachte accountaanmaak, wheel-lidmaatschap en sudo-gebruik.</li>
+          </ul>
+          <h3>Onderzochte technologieën</h3>
+          <p>SSH · HTTP/HTTPS · WordPress · Recyclops/HUBOT · Linux · polkit · D-Bus · AccountsService · sudo</p>
+        </section>
+      </article>
+    </div>
+  </main>
+  <script src="../script.js?v=7"></script>
+</body>
+
+</html>

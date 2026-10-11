@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTB Cap Write-up | RootV3x</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=7">
+</head>
+
+<body class="writeup-page">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="background-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><span class="prompt">&gt;_</span> RootV3x</a>
+      <a class="writeup-back" href="../index.html#writeups">← Terug naar write-ups</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="writeup-hero">
+        <p class="eyebrow">HACK THE BOX • CAP</p>
+        <h1>Hack The Box — Cap</h1>
+        <p>Onvoldoende toegangscontrole op netwerkopnames, onversleutelde FTP-inloggegevens en te ruime Linux
+          capabilities.</p>
+        <div class="writeup-summary"><span>Afgerond</span><span>OS: Linux</span><span>Difficulty: Easy</span></div>
+      </div>
+      <nav class="writeup-toc" aria-label="Write-up secties"><strong>WRITE-UP SECTIONS</strong><a
+          href="#overview">Overview</a><a href="#recon">Reconnaissance</a><a href="#enumeration">Enumeration</a><a
+          href="#access">Initial Access</a><a href="#privesc">Privilege Escalation</a><a href="#lessons">Lessons
+          Learned</a></nav>
+      <article class="writeup-article">
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>Tijdens het onderzoeken van de machine Cap heb ik succesvol een keten van kwetsbaarheden uitgebuit: een
+            autorisatieprobleem in de webomgeving, het lekken van gevoelige gegevens in netwerkverkeer en een lokale
+            rechtenfout. Door deze stappen te combineren, wist ik de machine volledig over te nemen en heb ik zowel de
+            userflag als de rootflag succesvol bemachtigd.</p>
+        </section>
+        <section id="recon">
+          <h2>Reconnaissance</h2>
+          <p>Mijn initiële poortscan bracht HTTP (poort 80), SSH (poort 22) en FTP (poort 21) aan het licht. Omdat
+            anonieme FTP-toegang niet was toegestaan, heb ik mijn pijlen direct gericht op de webapplicatie als het
+            primaire aangrijpingspunt.</p>
+        </section>
+        <section id="enumeration">
+          <h2>Enumeration</h2>
+          <p>In de webinterface stuitte ik op een functionaliteit die netwerkopnames (PCAP-bestanden) aanbood. Door te
+            testen of de autorisatie goed was ingericht, ontdekte ik een IDOR-kwetsbaarheid: ik kon simpelweg de opnames
+            van andere gebruikers inzien en downloaden. Ik heb een PCAP-bestand van 72 pakketten binnengehaald en
+            geanalyseerd met Wireshark. Hierin trof ik een onversleutelde, succesvolle FTP-sessie aan waarin de
+            inloggegevens in platte tekst over de lijn gingen.</p>
+        </section>
+        <section id="access">
+          <h2>Initial Access</h2>
+          <p>Met de gedachte dat inloggegevens vaak worden hergebruikt, heb ik de onderschepte FTP-gegevens getest op de
+            SSH-service. Dit bleek te werken: ik kreeg een succesvolle gebruikerssessie en kon direct de userflag
+            uitlezen.</p>
+        </section>
+        <section id="privesc">
+          <h2>Privilege Escalation</h2>
+          <p>Om mijn rechten te verhogen, heb ik lokale enumeratie uitgevoerd met behulp van LinPEAS. Hieruit bleek dat
+            de Python-interpreter over een onnodig brede cap_setuid-capability beschikte. Dit was een specifiek
+            capability-probleem en dus geen standaard SUID-bit. Door deze capability uit te buiten, kon ik vanuit mijn
+            normale gebruikersproces de identiteit van root aannemen, waarmee ik een root-shell opende en de rootflag
+            veiligstelde.</p>
+        </section>
+        <!-- TRAIL 2/3 — fragment: ad -->
+        <section id="lessons">
+          <h2>Lessons Learned</h2>
+          <ul>
+            <li>Controleer objectautorisatie voor ieder bestand dat een webapplicatie beschikbaar maakt.</li>
+            <li>Onversleutelde protocollen kunnen gevoelige gegevens in netwerkopnames achterlaten.</li>
+            <li>Linux capabilities verdienen een eigen controle naast traditionele bestandsrechten en SUID.</li>
+          </ul>
+          <h3>Mitigatie &amp; remediatie</h3>
+          <ul>
+            <li>Controleer server-side of de gebruiker toegang heeft tot iedere opgevraagde netwerkopname;
+              onvoorspelbare identifiers vervangen die controle niet.</li>
+            <li>Gebruik versleutelde bestandsoverdracht, beperk toegang tot captures en vermijd wachtwoordhergebruik.
+            </li>
+            <li>Verwijder onnodige capabilities van algemene interpreters en geef alleen specifiek benodigde rechten aan
+              afgebakende processen.</li>
+          </ul>
+          <h3>Gebruikte tools</h3>
+          <p>Nmap · Wireshark · SSH · LinPEAS · Python</p>
+        </section>
+      </article>
+    </div>
+  </main>
+  <script src="../script.js?v=7"></script>
+</body>
+
+</html>

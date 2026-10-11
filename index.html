@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RootV3x — My Journey of Becoming a Cybersecurity Ethical Hacker">
+  <title>RootV3x | Cybersecurity Journey</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+
+<body>
+  <!-- Rustige dynamische achtergrond -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="ambient-glow glow-cyan" aria-hidden="true"></div>
+  <div class="ambient-glow glow-purple" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#home" aria-label="RootV3x home">
+        <span class="prompt">&gt;_</span>
+        <span>RootV3x</span>
+      </a>
+
+      <button class="mobile-menu" aria-label="Menu openen" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" aria-label="Hoofdnavigatie">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">Over mij</a>
+        <a href="#journey">Journey</a>
+        <a href="#skills">Skills</a>
+        <a href="#progress">Progress</a>
+        <a href="#certificates">Certificaten</a>
+        <a href="#writeups">Write-ups</a>
+        <a href="#projects">Projects</a>
+        <a href="#ctf">CTF</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-cyber-layer" aria-hidden="true"></div>
+      <div class="hero-character" aria-hidden="true">
+        <img src="assets/rootv3x-hero-art.png" alt="">
+      </div>
+
+      <div class="container hero-content">
+        <p class="eyebrow">CYBERSECURITY &nbsp;•&nbsp; ETHICAL HACKING &nbsp;•&nbsp; DEVELOPMENT</p>
+
+        <h1>
+          My Journey of<br>
+          Becoming a<br>
+          <span class="gradient-text">Cybersecurity Ethical<br>Hacker</span>
+        </h1>
+
+        <p class="hero-intro">
+          Van mijn eerste stappen op Hack The Box tot het leren bouwen en doorgronden van
+          scripts, netwerken en webapplicaties. Dit is mijn persoonlijke reis richting
+          penetration testing en cybersecurity.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="button button-primary" href="#journey">Bekijk mijn journey</a>
+          <a class="button button-outline" href="#progress">Bekijk mijn progress</a>
+          <a class="button button-outline" href="#ctf">Speel de CTF →</a>
+        </div>
+
+        <div class="hero-stats">
+          <article class="stat-card">
+            <strong>12/28</strong>
+            <span>Penetration Tester modules</span>
+          </article>
+
+          <article class="stat-card">
+            <strong>100%</strong>
+            <span>CJCA leerpad voltooid</span>
+          </article>
+
+          <article class="stat-card">
+            <strong>4</strong>
+            <span>Behaalde certificaten</span>
+          </article>
+        </div>
+
+        <div class="terminal" id="ctf-terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="terminal-title">rootv3x@cyberlab:~</span>
+          </div>
+
+          <div class="terminal-body">
+            <div><span class="terminal-prompt">$</span> <strong>whoami</strong></div>
+            <div class="terminal-output">aspiring_penetration_tester</div>
+
+            <div><span class="terminal-prompt">$</span> <strong>cat current_focus.txt</strong></div>
+            <div class="terminal-output">
+              HTB Academy • Penetration Testing • Python • SQL • Web Development
+            </div>
+
+            <div><span class="terminal-prompt">$</span> <strong>echo "Keep learning. Keep building."</strong></div>
+            <div class="terminal-output">Keep learning. Keep building.<span class="cursor"></span></div>
+            <div id="terminal-history" role="log" aria-live="polite"></div>
+
+            <form id="terminal-form" autocomplete="off">
+              <label for="terminal-input" class="terminal-prompt">$</label>
+              <input id="terminal-input" type="text" aria-label="Terminalopdracht"
+                placeholder="Typ help en druk op Enter" spellcheck="false" autocomplete="off">
+              <button type="submit">Enter</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">01.</span>
+          <h2>Over Mij</h2>
+          <span class="heading-line"></span>
+        </div>
+
+        <div class="about-layout">
+          <div class="about-copy">
+            <p>
+              Mijn reis in de cybersecurity begon in het voorjaar van 2026 op
+              <strong>Hack The Box</strong>, waar ik momenteel word opgeleid tot
+              <strong>Penetration Tester</strong>.
+            </p>
+
+            <p>
+              Om de scripts en webapplicaties die ik tijdens het hacken tegenkom écht te
+              doorgronden, ben ik als aanvulling gaan leren coderen via <strong>Mimo</strong>.
+              Hier focus ik me op <strong>Python, SQL, HTML, CSS en JavaScript.</strong>
+            </p>
+
+            <p>
+              Ik ervaar het leren van deze programmeertalen als een ontspannen en logische
+              volgende stap in mijn ontwikkeling tot security-expert.
+            </p>
+
+            <p>
+              Inmiddels combineer ik offensive-securityonderwerpen met networking, traffic
+              analysis, Windows, Linux, Active Directory en onderdelen van incident handling.
+              Hierdoor leer ik systemen niet alleen aanvallen, maar ook beter begrijpen
+              vanuit het perspectief van verdediging en analyse.
+            </p>
+          </div>
+
+          <aside class="mission-card panel">
+            <div class="mission-icon">&lt;/&gt;</div>
+            <h3>Current mission</h3>
+            <p>
+              Van nieuwsgierige beginner naar een technisch brede en zelfstandig werkende
+              penetration tester.
+            </p>
+
+            <dl class="mission-list">
+              <div>
+                <dt>Status</dt>
+                <dd>ACTIVE LEARNING</dd>
+              </div>
+              <div>
+                <dt>Start</dt>
+                <dd>SPRING 2026</dd>
+              </div>
+              <div>
+                <dt>Focus</dt>
+                <dd>OFFENSIVE SECURITY</dd>
+              </div>
+              <div>
+                <dt>Platform</dt>
+                <dd>HTB ACADEMY</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY -->
+    <section class="section" id="journey">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">02.</span>
+          <h2>My Journey</h2>
+          <span class="heading-line"></span>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div>
+              <span class="timeline-date">Voorjaar 2026</span>
+              <h3>De start op Hack The Box</h3>
+              <p>
+                Mijn eerste serieuze stappen in cybersecurity. Ik begin met Linux, networking,
+                information security, enumeration en de basis van penetration testing.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div>
+              <span class="timeline-date">2026</span>
+              <h3>Penetration testing wordt breder</h3>
+              <p>
+                Ik verdiep me in Nmap, footprinting, web requests, Metasploit, vulnerability
+                assessment, shells &amp; payloads, Windows, Active Directory en network traffic analysis.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div>
+              <span class="timeline-date">Zomer 2026</span>
+              <h3>Programmeren als tweede fundament</h3>
+              <p>
+                Via Mimo bouw ik verder aan Python, SQL, HTML, CSS en JavaScript zodat ik
+                security tooling en webapplicaties steeds beter kan begrijpen.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div>
+              <span class="timeline-date">Nu</span>
+              <h3>CJCA-leerpad voltooid, verder richting pentesting</h3>
+              <p>
+                Mijn Junior Cybersecurity Analyst-leerpad is afgerond; het CJCA-examen volgt in oktober 2026. Ik werk
+                verder aan het Penetration Tester path en bouw eigen tooling.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">03.</span>
+          <h2>Skills ontwikkeld</h2>
+          <span class="heading-line"></span>
+        </div>
+
+        <p class="section-intro">
+          Mijn skills komen voort uit hands-on labs, Academy-modules, programmeren en het
+          zelf documenteren van wat ik leer.
+        </p>
+
+        <div class="skills-grid">
+          <article class="skill-card panel">
+            <div class="skill-icon">⌘</div>
+            <h3>Penetration Testing</h3>
+            <p>Een systematische pentest leren uitvoeren, van footprinting en service-enumeratie tot het beoordelen van
+              veelgebruikte services. Attacking Common Services is afgerond in HTB Academy.</p>
+            <div class="tags"><span>Footprinting</span><span>Nmap</span><span>Common Services</span><span>Vulnerability
+                Assessment</span><span>Shells &amp; Payloads</span></div>
+          </article>
+
+          <article class="skill-card panel">
+            <div class="skill-icon">◎</div>
+            <h3>Networking &amp; Traffic Analysis</h3>
+            <p>Netwerkverkeer en PCAP-bestanden analyseren met Wireshark. De Academy-module over pivoting, tunneling en
+              port forwarding is afgerond; deze technieken helpen interne services en netwerksegmenten te begrijpen.</p>
+            <div class="tags"><span>TCP/IP</span><span>Wireshark</span><span>PCAP
+                Analysis</span><span>Pivoting</span><span>Tunneling</span><span>Port Forwarding</span></div>
+          </article>
+
+          <article class="skill-card panel">
+            <div class="skill-icon">&lt;/&gt;</div>
+            <h3>Web Security</h3>
+            <p>Webapplicaties onderzoeken op toegangscontrole en kwetsbare gegevensverwerking. De labs Cap, Jerry en
+              MetaTwo verdiepen mijn ervaring met IDOR, Tomcat, WordPress, SQL-injection en XXE.</p>
+            <div class="tags"><span>Web Requests</span><span>IDOR</span><span>SQL
+                Injection</span><span>XXE</span><span>WordPress</span><span>Tomcat</span></div>
+          </article>
+
+          <article class="skill-card panel">
+            <div class="skill-icon">#</div>
+            <h3>Linux &amp; Bash</h3>
+            <p>Werken met Linux, Bash, permissies en services. In Cap heb ik geleerd hoe onnodige Linux capabilities op
+              een interpreter het systeem kunnen blootstellen aan rechtenverhoging.</p>
+            <div class="tags"><span>Kali Linux</span><span>Bash</span><span>Permissions</span><span>Linux
+                Capabilities</span><span>Services</span></div>
+          </article>
+
+          <article class="skill-card panel">
+            <div class="skill-icon text-icon">WIN</div>
+            <h3>Windows &amp; Active Directory</h3>
+            <p>
+              Windows-fundamenten, de Windows command line, Active Directory en
+              veelgebruikte beheer- en enumerationconcepten.
+            </p>
+            <div class="tags">
+              <span>Windows</span><span>PowerShell</span><span>Active Directory</span>
+              <span>SMB</span><span>WinRM</span>
+            </div>
+          </article>
+
+          <article class="skill-card panel">
+            <div class="skill-icon text-icon">SOC</div>
+            <h3>Security Operations</h3>
+            <p>
+              Basisvaardigheden rond information security, incident handling,
+              event-analyse en het bekijken van security vanuit defensief perspectief.
+            </p>
+            <div class="tags">
+              <span>InfoSec</span><span>Incident Handling</span><span>Logs</span>
+              <span>Threat Awareness</span><span>CIA</span>
+            </div>
+          </article>
+
+          <article class="skill-card panel">
+            <div class="skill-icon text-icon">PY</div>
+            <h3>Python Development</h3>
+            <p>Mimo Python Development afgerond op 24 augustus 2026. Python gebruiken voor automatisering,
+              gegevensverwerking en eigen security-hulpmiddelen, met een basis in functies, objecten, modules en API’s.
+            </p>
+            <div class="tags"><span>Python</span><span>Functions</span><span>OOP</span><span>Modules &amp;
+                APIs</span><span>Automation</span></div>
+          </article>
+
+          <article class="skill-card panel">
+            <div class="skill-icon text-icon">SQL</div>
+            <h3>SQL &amp; Databases</h3>
+            <p>Mimo SQL afgerond op 30 augustus 2026. Queries over één of meerdere tabellen schrijven, gegevens
+              combineren en een relationele database beheren; deze basis helpt ook bij het begrijpen van SQL-injection.
+            </p>
+            <div class="tags"><span>SELECT</span><span>WHERE</span><span>JOIN</span><span>Relational
+                Databases</span><span>SQL</span></div>
+          </article>
+
+          <article class="skill-card panel">
+            <div class="skill-icon text-icon">WEB</div>
+            <h3>Web Development</h3>
+            <p>Mimo HTML afgerond op 2 september 2026. Webpagina’s opbouwen met semantische HTML en verder leren met CSS
+              en JavaScript om layout en gedrag in de browser te begrijpen.</p>
+            <div class="tags"><span>HTML · afgerond</span><span>CSS</span><span>JavaScript</span><span>Semantic
+                HTML</span><span>DOM</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="section" id="progress">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">04.</span>
+          <h2>HTB Academy Progress</h2>
+          <span class="heading-line"></span>
+        </div>
+
+        <p class="section-intro">
+          Afgeronde leerpaden en modules, plus mijn voortgang in het Penetration Tester job role path. Bijgewerkt op 20
+          september 2026.
+        </p>
+
+        <div class="progress-grid">
+          <article class="progress-card panel">
+            <div class="progress-top">
+              <div><span>JOB ROLE PATH · VOLTOOID</span>
+                <h3>Junior Cybersecurity Analyst</h3>
+              </div><strong>100%</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-label="Junior Cybersecurity Analyst leerpad"
+              aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><span style="--progress:100%"></span></div>
+            <p>Leerpad volledig afgerond. CJCA-examen gepland voor oktober 2026; certificering nog niet behaald.</p>
+          </article>
+          <article class="progress-card panel">
+            <div class="progress-top">
+              <div><span>JOB ROLE PATH · IN UITVOERING</span>
+                <h3>Penetration Tester</h3>
+              </div><strong>43%</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-label="Penetration Tester leerpad" aria-valuemin="0"
+              aria-valuemax="100" aria-valuenow="43"><span style="--progress:43%"></span></div>
+            <p>12 van 28 modules voltooid. Voortgang zoals weergegeven in HTB Academy. Level 56 · Rank Professional · 13
+              weken streak.</p>
+          </article>
+
+          <article class="completed-card panel">
+            <span class="check">✓</span>
+            <div><span>COMPLETED SKILL PATH</span>
+              <h3>Cracking Into Hack The Box</h3>
+            </div>
+          </article>
+
+          <article class="completed-card panel">
+            <span class="check">✓</span>
+            <div><span>COMPLETED SKILL PATH</span>
+              <h3>Information Security Foundations</h3>
+            </div>
+          </article>
+        </div>
+
+        <button class="modules-toggle panel" type="button" aria-expanded="false">
+          <span>▶</span> Bekijk een selectie van afgeronde HTB Academy modules
+        </button>
+
+        <div class="modules-list" hidden>
+          <span>Linux Fundamentals</span>
+          <span>Network Foundations</span>
+          <span>Introduction to Networking</span>
+          <span>Information Security Foundations</span>
+          <span>Footprinting</span>
+          <span>Web Requests</span>
+          <span>Shells &amp; Payloads</span>
+          <span>Vulnerability Assessment</span>
+          <span>Windows Fundamentals</span>
+          <span>Introduction to Active Directory</span>
+          <span>Attacking Common Services</span>
+          <span>Pivoting, Tunneling, And Port Forwarding</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section class="section" id="certificates">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">05.</span>
+          <h2>Certificaten &amp; Credentials</h2>
+          <span class="heading-line"></span>
+        </div>
+
+        <div class="certificate-grid">
+          <article class="certificate-card panel">
+            <div class="certificate-badge">CJCA</div>
+            <div><span class="certificate-category">LEERPAD VOLTOOID · EXAMEN GEPLAND</span>
+              <h3>Junior Cybersecurity Analyst</h3><span class="issuer">Hack The Box Academy</span>
+              <p>Het volledige Junior Cybersecurity Analyst job role path is afgerond. Ik doe het CJCA-examen in oktober
+                2026. De certificering is nog niet behaald.</p>
+              <div class="tags"><span>Path: 100%</span><span>Examen: oktober 2026</span></div>
+            </div>
+          </article>
+
+          <article class="certificate-card panel">
+            <div class="certificate-badge">ISC2</div>
+            <div>
+              <span class="certificate-category">CYBERSECURITY</span>
+              <h3>Certified in Cybersecurity</h3>
+              <span class="issuer">ISC2</span>
+              <p>
+                Toegekend in juli 2026. Gericht op cybersecurity fundamentals en
+                een brede basis in informatiebeveiliging.
+              </p>
+              <div class="tags"><span>Cybersecurity Fundamentals</span><span>ISC2</span></div>
+            </div>
+          </article>
+
+          <article class="certificate-card certificate-with-image panel">
+            <a class="certificate-preview" href="assets/certificates/python.png" target="_blank" rel="noopener"
+              aria-label="Bekijk het Python Development-certificaat op volledig formaat (nieuw tabblad)"><img
+                src="assets/certificates/python.png"
+                alt="Mimo-certificaat Python Development, toegekend aan Rudger Eilers op 24 augustus 2026"
+                loading="lazy" decoding="async"></a>
+            <div><span class="certificate-category">DEVELOPMENT · BEHAALD</span>
+              <h3>Python Development</h3><span class="issuer">Mimo · 24 augustus 2026</span>
+              <p>Professioneel Mimo-certificaat voor Python-programmeren, objectgericht werken, modules, API’s en
+                scriptontwikkeling.</p><a class="certificate-link" href="assets/certificates/python.png" target="_blank"
+                rel="noopener">Bekijk certificaat op volledig formaat ↗</a>
+            </div>
+          </article>
+          <article class="certificate-card certificate-with-image panel">
+            <a class="certificate-preview" href="assets/certificates/sql.png" target="_blank" rel="noopener"
+              aria-label="Bekijk het SQL-certificaat op volledig formaat (nieuw tabblad)"><img
+                src="assets/certificates/sql.png"
+                alt="Mimo-certificaat SQL, toegekend aan Rudger Eilers op 30 augustus 2026" loading="lazy"
+                decoding="async"></a>
+            <div><span class="certificate-category">DEVELOPMENT · BEHAALD</span>
+              <h3>SQL</h3><span class="issuer">Mimo · 30 augustus 2026</span>
+              <p>Mimo-certificaat voor SQL-query’s, het combineren van tabellen en het beheren van een relationele
+                database.</p><a class="certificate-link" href="assets/certificates/sql.png" target="_blank"
+                rel="noopener">Bekijk certificaat op volledig formaat ↗</a>
+            </div>
+          </article>
+          <article class="certificate-card certificate-with-image panel">
+            <a class="certificate-preview" href="assets/certificates/html.png" target="_blank" rel="noopener"
+              aria-label="Bekijk het HTML-certificaat op volledig formaat (nieuw tabblad)"><img
+                src="assets/certificates/html.png"
+                alt="Mimo-certificaat HTML, toegekend aan Rudger Eilers op 2 september 2026" loading="lazy"
+                decoding="async"></a>
+            <div><span class="certificate-category">DEVELOPMENT · BEHAALD</span>
+              <h3>HTML</h3><span class="issuer">Mimo · 2 september 2026</span>
+              <p>Mimo-certificaat voor websitefundamenten en het opbouwen van webpagina’s met HTML.</p><a
+                class="certificate-link" href="assets/certificates/html.png" target="_blank" rel="noopener">Bekijk
+                certificaat op volledig formaat ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WRITEUPS -->
+    <section class="section" id="writeups">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">06.</span>
+          <h2>Write-ups</h2>
+          <span class="heading-line"></span>
+        </div>
+
+        <p class="section-intro">
+          Technische documentatie van labs waarin ik mijn aanpak, bevindingen en belangrijkste
+          lessen overzichtelijk vastleg.
+        </p>
+
+        <div class="content-grid">
+          <article class="content-card panel">
+            <div class="card-meta"><span>HACK THE BOX</span><span>AFGEROND</span></div>
+            <h3>Jerry</h3>
+            <p>Apache Tomcat-beheer met standaardinloggegevens en een applicatieservice met te ruime rechten.</p><a
+              href="writeups/jerry.html">Lees write-up →</a>
+          </article>
+          <article class="content-card panel">
+            <div class="card-meta"><span>HACK THE BOX</span><span>AFGEROND</span></div>
+            <h3>Cap</h3>
+            <p>Onvoldoende toegangscontrole op netwerkopnames, onversleutelde FTP-inloggegevens en te ruime Linux
+              capabilities.</p><a href="writeups/cap.html">Lees write-up →</a>
+          </article>
+          <article class="content-card panel">
+            <div class="card-meta"><span>HACK THE BOX</span><span>AFGEROND</span></div>
+            <h3>MetaTwo</h3>
+            <p>WordPress- en pluginbeveiliging, XML-verwerking, gelekte configuratiegegevens en de bescherming van een
+              lokale wachtwoordkluis.</p><a href="writeups/metatwo.html">Lees write-up →</a>
+          </article>
+          <article class="content-card panel">
+            <div class="card-meta"><span>HACK THE BOX</span><span>AFGEROND</span></div>
+            <h3>Markup</h3>
+            <p>XXE → SSH-sleutel → schrijfbaar job.bat.</p><a href="writeups/markup.html">Lees write-up →</a>
+          </article>
+          
+          
+          
+          
+          
+          <article class="content-card panel">
+            <div class="card-meta"><span>HACK THE BOX</span><span>AFGEROND</span></div>
+            <h3>Included</h3>
+            <p>TFTP-webshell → wachtwoordhergebruik → LXD.</p><a href="writeups/included.html">Lees write-up →</a>
+          </article>
+          <article class="content-card panel">
+            <div class="card-meta"><span>HACK THE BOX</span><span>AFGEROND</span></div>
+            <h3>Paper</h3>
+            <p>WordPress-informatielekken, geheimenbeheer rond Recyclops/HUBOT en een autorisatiefout in polkit.</p><a
+              href="writeups/paper.html">Lees write-up →</a>
+          </article>
+          
+          
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">07.</span>
+          <h2>Projects</h2>
+          <span class="heading-line"></span>
+        </div>
+
+        <div class="content-grid">
+          <article class="content-card panel" id="superscan">
+            <div class="card-meta"><span>BASH · PYTHON</span><span>RECON &amp; ENUMERATION</span></div>
+            <h3>SuperScan v2</h3>
+            <p>Automatiseert een recon-workflow voor geautoriseerde pentests: van een volledige TCP-poortscan en
+              Nmap-serviceherkenning tot web-enumeratie en gerichte vervolgstappen.</p>
+            <ul class="project-features">
+              <li>Nmap-serviceversies en standaard NSE-scripts; optionele vulnerability-checks.</li>
+              <li>HTTP/HTTPS-detectie, ook op afwijkende poorten, met Gobuster en Nikto wanneer beschikbaar.</li>
+              <li>Geordende scanbestanden, foutlogs en een Markdown-overzicht met pentest-vervolgstappen.</li>
+            </ul>
+            <div class="tags"><span>Nmap</span><span>Gobuster</span><span>Nikto</span><span>Automatisering</span></div>
+            <span class="project-status">IN ONTWIKKELING</span>
+            <!-- Optioneel: voeg hier later een link naar de publieke GitHub-repository toe. -->
+          </article>
+          <article class="content-card panel" id="portifer">
+            <div class="card-meta"><span>PYTHON</span><span>ENUMERATION ASSISTANT</span></div>
+            <h3>RootV3X Enumeration Assistant</h3>
+            <p>Zet handmatig ingevoerde poorten of een Nmap XML-bestand om in een geprioriteerd overzicht van services.
+              Helpt bepalen wat je vervolgens onderzoekt, zonder de voorgestelde commando’s zelf uit te voeren.</p>
+            <ul class="project-features">
+              <li>XML-import van meerdere hosts, open poorten en servicefingerprints.</li>
+              <li>Serviceprofielen op basis van Nmap-herkenning, met poortnummer als terugval.</li>
+              <li>Enumeration-checklists, voorbeeldcommando’s, aandachtspunten en logische vervolgstappen per service.
+              </li>
+            </ul>
+            <div class="tags"><span>Python</span><span>Nmap XML</span><span>Checklists</span></div>
+            <span class="project-status">IN ONTWIKKELING</span>
+            <!-- Optioneel: voeg hier later een link naar de publieke GitHub-repository toe. -->
+          </article>
+
+          <article class="content-card panel">
+            <div class="card-meta"><span>PORTFOLIO</span><span>WEB DEVELOPMENT</span></div>
+            <h3>RootV3x Cybersecurity Journey</h3>
+            <p>
+              Deze website: een groeiend portfolio waarin ik mijn skills, progressie,
+              certificaten, tools en write-ups documenteer.
+            </p>
+            <span class="project-status">ACTIVE</span>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="ctf">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">08.</span>
+          <h2>RootV3x CTF</h2>
+          <span class="heading-line"></span>
+        </div>
+        <p class="section-intro">Vier verborgen flags. Eén finale. Ontdek de aanwijzingen op deze website en verzamel de codefragmenten.</p>
+        <details class="ctf-hints panel">
+          <summary>Waar begin ik? Bekijk de puzzels en hints</summary>
+          <ol>
+            <li><strong>Hidden in plain sight</strong> — niet alles staat op het scherm. Bekijk de HTML-broncode van de homepage.</li>
+            <li><strong>Terminal secret</strong> — typ <code>help</code> in de <a href="#ctf-terminal">terminal bovenaan</a> en verken de bestanden.</li>
+            <li><strong>Decode me</strong> — in de terminal wacht een onderschept bericht om ontcijferd te worden.</li>
+            <li><strong>Follow the trail</strong> — drie machines, één bestemming. Zoek de route in de terminal.</li>
+          </ol>
+          <p>Noteer elk codefragment en vul ze in bij <a href="#final-access">Final Access</a>.</p>
+        </details>
+        <article class="content-card panel">
+          <div class="card-meta">
+            <span>ROOTV3X CTF</span>
+            <span>4 FLAGS · 1 FINAL CODE</span>
+          </div>
+
+          <h3>Flag checker</h3>
+          <p>
+            Verken de website en vind de vier verborgen flags.
+            Voer elke flag hieronder in om een codefragment te onthullen.
+            Samen openen de fragmenten Final Access.
+          </p>
+
+          <form id="flag-form">
+            <label for="flag-input">Gevonden flag</label><br>
+            <input id="flag-input" type="text" placeholder="ROOTV3X{...}" autocomplete="off" spellcheck="false"
+              required>
+            <button class="button button-primary" type="submit">
+              Controleer
+            </button>
+          </form>
+
+          <p id="flag-result" role="status"></p>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="final-access">
+      <div class="container">
+        <article class="content-card panel">
+          <div class="card-meta">
+            <span>ROOTV3X CTF</span>
+            <span id="vault-status">LOCKED</span>
+          </div>
+
+          <h2>Final Access</h2>
+          <p>
+            Vier puzzels. Vier codefragmenten.
+            Voer ze in de volgorde van de puzzels in.
+          </p>
+
+          <form id="final-form">
+            <div class="code-grid">
+              <label>
+                Fragment 1
+                <input name="part1" type="text" maxlength="4" pattern="[A-Za-z0-9]{4}" required autocomplete="off"
+                  spellcheck="false">
+              </label>
+
+              <label>
+                Fragment 2
+                <input name="part2" type="text" maxlength="4" pattern="[A-Za-z0-9]{4}" required autocomplete="off"
+                  spellcheck="false">
+              </label>
+
+              <label>
+                Fragment 3
+                <input name="part3" type="text" maxlength="4" pattern="[A-Za-z0-9]{4}" required autocomplete="off"
+                  spellcheck="false">
+              </label>
+
+              <label>
+                Fragment 4
+                <input name="part4" type="text" maxlength="4" pattern="[A-Za-z0-9]{4}" required autocomplete="off"
+                  spellcheck="false">
+              </label>
+            </div>
+
+            <button class="button button-primary" type="submit">
+              Unlock
+            </button>
+          </form>
+
+          <div id="final-result" role="status"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <!-- ROOTV3X{hidden_in_plain_sight} -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><span class="prompt">&gt;_</span> <strong>RootV3x</strong></div>
+      <p>Hack • Learn • Build • Improve</p>
+      <p>My Journey of Becoming a Cybersecurity Ethical Hacker</p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=7"></script>
+</body>
+
+</html>

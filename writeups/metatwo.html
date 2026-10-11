@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTB MetaTwo Write-up | RootV3x</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=7">
+</head>
+
+<body class="writeup-page">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="background-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><span class="prompt">&gt;_</span> RootV3x</a>
+      <a class="writeup-back" href="../index.html#writeups">← Terug naar write-ups</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="writeup-hero">
+        <p class="eyebrow">HACK THE BOX • METATWO</p>
+        <h1>Hack The Box — MetaTwo</h1>
+        <p>WordPress- en pluginbeveiliging, XML-verwerking, gelekte configuratiegegevens en de bescherming van een
+          lokale wachtwoordkluis.</p>
+        <div class="writeup-summary"><span>Afgerond</span><span>OS: Linux</span></div>
+      </div>
+      <nav class="writeup-toc" aria-label="Write-up secties"><strong>WRITE-UP SECTIONS</strong><a
+          href="#overview">Overview</a><a href="#recon">Reconnaissance</a><a href="#enumeration">Enumeration</a><a
+          href="#access">Initial Access</a><a href="#privesc">Privilege Escalation</a><a href="#lessons">Lessons
+          Learned</a></nav>
+      <article class="writeup-article">
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>Tijdens dit lab heb ik gezien hoe meerdere zwakke plekken in applicaties en geheimenbeheer elkaar
+            gevaarlijk kunnen versterken. Door kwetsbaarheden in WordPress te combineren met het kraken van de lokale
+            wachtwoordmanager Passpie, wist ik een volledige route uit te stippelen van nul af aan tot aan volledige
+            roottoegang. Hierdoor heb ik beide flags succesvol weten te bemachtigen.</p>
+        </section>
+        <!-- TRAIL 3/3 — fragment: ow -->
+        <section id="recon">
+          <h2>Reconnaissance</h2>
+          <p>Mijn netwerkscan identificeerde FTP (poort 21), SSH (poort 22) en HTTP (poort 80) op het doelwit. De
+            webapplicatie bleek te draaien op WordPress. De FTP-service leverde in deze eerste fase nog geen bruikbare
+            ingang op, waardoor mijn focus direct verschoof naar de website.
+          </p>
+        </section>
+        <section id="enumeration">
+          <h2>Enumeration</h2>
+          <p>Door middel van handmatige webanalyse en gerichte WordPress-enumeratie stuitte ik op een kwetsbare
+            BookingPress-plugin en een verouderde media-afhandeling. Ik wist hier twee serieuze kwetsbaarheden te
+            identificeren:Een unauthenticated SQL-injection (CVE-2022-0739) binnen de BookingPress-plugin.Een XML
+            External Entity (XXE)-verwerking in de verouderde media-afhandeling van de core-omgeving.Deze combinatie
+            bracht cruciale applicatiegegevens en configuratiegeheimen binnen mijn bereik.</p>
+        </section>
+        <section id="access">
+          <h2>Initial Access</h2>
+          <p>Met de SQL-injection (CVE-2022-0739) verkreeg ik databasegegevens, waarmee ik kon inbreken op een
+            WordPress-account. Daarnaast gebruikte ik het XXE-lek in de mediaverwerking om gevoelige
+            configuratiebestanden uit te lezen. In een achtergelaten mailerscript vond ik vervolgens inloggegevens die
+            ook bleken te werken voor SSH. Na het inloggen via SSH had ik mijn initiële toegang binnen en kon ik direct
+            de userflag uitlezen.</p>
+        </section>
+        <section id="privesc">
+          <h2>Privilege Escalation</h2>
+          <p>Tijdens de lokale inspectie van het systeem ontdekte ik een Passpie-wachtwoordkluis. Ik heb het
+            bijbehorende sleutelmateriaal buitgemaakt en onderworpen aan een offline wachtwoordaanval. De beveiliging
+            bleek onvoldoende bestand tegen dit brute-force-onderzoek, waardoor ik het opgeslagen beheerderswachtwoord
+            wist te achterhalen. Met dit geheim escaleerde ik mijn rechten naar een root-shell en stelde ik de rootflag
+            veilig.</p>
+        </section>
+        <section id="lessons">
+          <h2>Lessons Learned</h2>
+          <ul>
+            <li>Een service zonder directe ingang kan later alsnog relevant blijken door elders gelekte gegevens.</li>
+            <li>Configuratiebestanden en scripts moeten als dragers van gevoelige geheimen worden behandeld.</li>
+            <li>De beveiliging van een wachtwoordkluis hangt ook af van sleutelbescherming, bestandsrechten en de
+              sterkte van de passphrase.</li>
+          </ul>
+          <h3>Mitigatie &amp; remediatie</h3>
+          <ul>
+            <li>Werk WordPress, plugins en mediabibliotheken bij en beperk upload- en beheertoegang.</li>
+            <li>Houd geheimen buiten publiek bereikbare bestanden, beperk leesrechten en roteer blootgestelde
+              inloggegevens.</li>
+            <li>Bescherm kluizen en sleutels met sterke unieke passphrases en minimale toegangsrechten.</li>
+          </ul>
+          <h3>Gebruikte tools</h3>
+          <p>Nmap · WPScan · Burp Suite · Python · Hashcat · John the Ripper · PHP · SSH · Passpie</p>
+        </section>
+      </article>
+    </div>
+  </main>
+  <script src="../script.js?v=7"></script>
+</body>
+
+</html>

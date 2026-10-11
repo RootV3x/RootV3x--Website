@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTB Jerry Write-up | RootV3x</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=7">
+</head>
+
+<body class="writeup-page">
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="background-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><span class="prompt">&gt;_</span> RootV3x</a>
+      <a class="writeup-back" href="../index.html#writeups">← Terug naar write-ups</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="writeup-hero">
+        <p class="eyebrow">HACK THE BOX • JERRY</p>
+        <h1>Hack The Box — Jerry</h1>
+        <p>Apache Tomcat-beheer met standaardinloggegevens en een applicatieservice met te ruime rechten.</p>
+        <div class="writeup-summary"><span>Afgerond</span><span>OS: Windows</span><span>Difficulty: Easy</span></div>
+      </div>
+      <nav class="writeup-toc" aria-label="Write-up secties"><strong>WRITE-UP SECTIONS</strong><a
+          href="#overview">Overview</a><a href="#recon">Reconnaissance</a><a href="#enumeration">Enumeration</a><a
+          href="#access">Initial Access</a><a href="#privesc">Privilege Escalation</a><a href="#lessons">Lessons
+          Learned</a></nav>
+      <article class="writeup-article">
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>Tijdens dit Windows-lab heb ik met succes de beveiliging van een Tomcat-beheeromgeving gecompromitteerd.
+            Door een verkeerde configuratie en het gebruik van standaardinloggegevens wist ik volledige controle over de
+            machine te krijgen. Ik heb de kwetsbaarheid van begin tot eind uitgebuit, wat resulteerde in directe toegang
+            met de hoogste rechten en het succesvol bemachtigen van beide flags op het bureaublad van de Administrator.
+          </p>
+        </section>
+        <!-- TRAIL 1/3 — fragment: sh -->
+        <section id="recon">
+          <h2>Reconnaissance</h2>
+          <p>Tijdens de initiële scan ontdekte ik een actieve HTTP-service op poort 8080. Omdat deze poort direct mijn
+            aandacht trok, heb ik de focus volledig gelegd op het onderzoeken van de actieve Apache
+            Tomcat-webapplicatie.</p>
+        </section>
+        <section id="enumeration">
+          <h2>Enumeration</h2>
+          <p>De webomgeving bleek te draaien op Apache Tomcat versie 7.0.88. Tijdens het testen van de beheeromgeving
+            merkte ik dat de toegang slecht was afgeschermd; ik kon simpelweg binnenkomen door gebruik te maken van de
+            standaardinloggegevens.</p>
+        </section>
+        <section id="access">
+          <h2>Initial Access</h2>
+          <p>Zodra ik toegang had tot het Tomcat-beheerpaneel, kon ik een eigen applicatie uploaden en uitvoeren. Via
+            deze weg kreeg ik direct systeemtoegang tot de machine. De impact was hierdoor aanzienlijk, wat volledig te
+            wijten was aan de combinatie van de zwakke authenticatie en de hoge rechten van de applicatieservice.</p>
+        </section>
+        <section id="privesc">
+          <h2>Privilege Escalation</h2>
+          <p>Na de binnendringing bleek ik meteen over de hoogste rechten te beschikken. Ik kon direct doorstoten naar
+            het bureaublad van de Administrator, waar ik beide flags succesvol heb aangetroffen en veiliggesteld. Een
+            specifieke tussenstap voor escalatie was hierdoor niet nodig.</p>
+        </section>
+        <section id="lessons">
+          <h2>Lessons Learned</h2>
+          <ul>
+            <li>Standaardinloggegevens horen niet op een bereikbare beheerinterface thuis.</li>
+            <li>Applicatiebeheer kan invloed geven op het onderliggende systeem.</li>
+            <li>Leg de verkregen gebruikerscontext vast en onderscheid directe hoge rechten van een aparte escalatie.
+            </li>
+          </ul>
+          <h3>Mitigatie &amp; remediatie</h3>
+          <ul>
+            <li>Vervang standaardinloggegevens en beperk netwerktoegang tot de beheerinterface.</li>
+            <li>Voer Tomcat uit met een apart serviceaccount met minimale rechten.</li>
+            <li>Houd de applicatieserver actueel en controleer beheeracties en deployments.</li>
+          </ul>
+          <h3>Gebruikte tools</h3>
+          <p>Nmap · Metasploit</p>
+        </section>
+      </article>
+    </div>
+  </main>
+  <script src="../script.js?v=7"></script>
+</body>
+
+</html>
