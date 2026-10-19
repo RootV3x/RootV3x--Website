@@ -1,0 +1,26 @@
+{
+  "name": "rootv3x-github",
+  "version": "1.0.0",
+  "description": "Open RootV3x.code-workspace in VS Code. Open index.html met Live Server om de website lokaal te bekijken.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RootV3x/RootV3x--Website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RootV3x/RootV3x--Website/issues"
+  },
+  "homepage": "https://github.com/RootV3x/RootV3x--Website#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0"
+  }
+}
